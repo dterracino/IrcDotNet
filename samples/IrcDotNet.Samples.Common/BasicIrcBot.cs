@@ -66,7 +66,7 @@ namespace IrcDotNet
                 bool.TryParse(parameters[1], out useSsl);
             }
 
-            int port = 6697;
+            int port = useSsl ? 6697 : 6667;
             if (parameters.Count > 2)
             {
                 int.TryParse(parameters[2], out port);
