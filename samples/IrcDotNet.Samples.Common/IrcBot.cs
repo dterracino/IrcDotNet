@@ -143,7 +143,7 @@ namespace IrcDotNet
             }
         }
 
-        protected void Connect(string server, IrcRegistrationInfo registrationInfo)
+        protected void Connect(string server, IrcRegistrationInfo registrationInfo, int port=6667, bool useSsl=false)
         {
             // Create new IRC client and connect to given server.
             var client = new StandardIrcClient();
@@ -156,7 +156,7 @@ namespace IrcDotNet
             using (var connectedEvent = new ManualResetEventSlim(false))
             {
                 client.Connected += (sender2, e2) => connectedEvent.Set();
-                client.Connect(server, false, registrationInfo);
+                client.Connect(server, port, useSsl, registrationInfo);
                 if (!connectedEvent.Wait(10000))
                 {
                     client.Dispose();
